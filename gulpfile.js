@@ -10,8 +10,10 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var sassGlob = require('gulp-sass-glob');
 
-const THEME_ROOT = 'web/themes/custom/ibc/';
-const FONT_NAME = 'iconfont';
+var config = require('./gulp-config.json');
+
+const THEME_ROOT = config.theme_root;
+const FONT_NAME = config.iconfont_name;
 
 const PATHS = {
   scss: `${THEME_ROOT}scss/`,
