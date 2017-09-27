@@ -15,6 +15,7 @@ You can just clone this repository and start using it or install it with Compose
       "reference": "origin/master"
     }
   }
-}```
+}
+```
 
 and add `"gulp-workflow": "dev-master",` to your list of requirements.
