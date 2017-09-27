@@ -3,7 +3,8 @@ A custom workflow for compiling theme files with gulp.
 
 ## Installation
 You can just clone this repository and start using it or install it with Composer. Add this to your _composer.json_
-```{
+```
+{
   "type": "package",
   "package": {
     "name": "gulp-workflow",
