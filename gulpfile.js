@@ -30,21 +30,21 @@ gulp.task('watch', function(){
   // Watch SASS files.
   gulp.watch(PATHS.scss + '**/*.scss', ['sass']);
   // Watch for changes in main stylesheet.
-  gulp.watch(PATHS.css + 'style.css', ['minify-css']);
+  gulp.watch(PATHS.css + '*.css', ['minify-css']);
   // Watch for new or changed icons.
   gulp.watch(PATHS.img + 'icons/*.svg', ['icons']);
 });
 
 // Compile SASS to CSS. Handle errors with plumber function.
 gulp.task('sass', function(){
-  gulp.src(PATHS.scss + 'style.scss')
+  gulp.src([PATHS.scss + 'style.scss', PATHS.scss + 'print.scss'])
+  .pipe(sassGlob())
   .pipe(plumber({ errorHandler: function(err) {
     notify.onError({
       title: "Gulp error in " + err.plugin,
       message: err.toString()
     })(err);
   }}))
-  .pipe(sassGlob())
   .pipe(sass())
   .pipe(autoprefixer({
       browsers: ['last 2 versions'],
@@ -55,7 +55,7 @@ gulp.task('sass', function(){
 
 // Minify SASS to CSS.
 gulp.task('minify-css', function() {
-  return gulp.src(PATHS.css + 'style.css')
+  return gulp.src(PATHS.css + '*.css')
     .pipe(cleanCSS())
     .pipe(gulp.dest(PATHS.css));
 });
