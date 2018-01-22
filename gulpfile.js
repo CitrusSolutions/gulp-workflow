@@ -14,6 +14,7 @@ var config = require('./gulp-config.json');
 
 const THEME_ROOT = config.theme_root;
 const FONT_NAME = config.iconfont_name;
+const STYLE_FILE = config.style_file_name;
 
 const PATHS = {
   scss: `${THEME_ROOT}scss/`,

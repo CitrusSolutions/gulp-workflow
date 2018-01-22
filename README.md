@@ -33,7 +33,8 @@ Gulp workflow needs a _gulp-config.json_ file in the same directory as the _gulp
 You can use this example example content in creating the config file.
 ```
 {
-  "theme_root" : "web/themes/custom/ibc/",
+  "theme_root" : "web/themes/custom/theme_name/",
+  "style_file_name" : "main.css",
   "iconfont_name" : "iconfont"
 }
 ```
