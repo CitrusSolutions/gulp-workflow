@@ -34,7 +34,7 @@ You can use this example example content in creating the config file.
 ```
 {
   "theme_root" : "web/themes/custom/theme_name/",
-  "style_file_name" : "main.css",
+  "style_file_name" : "main.scss",
   "iconfont_name" : "iconfont"
 }
 ```
