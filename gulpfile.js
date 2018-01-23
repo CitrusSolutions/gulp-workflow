@@ -38,7 +38,7 @@ gulp.task('watch', function(){
 
 // Compile SASS to CSS. Handle errors with plumber function.
 gulp.task('sass', function(){
-  gulp.src([PATHS.scss + 'style.scss', PATHS.scss + 'print.scss'])
+  gulp.src([PATHS.scss + STYLE_FILE, PATHS.scss + 'print.scss'])
   .pipe(sassGlob())
   .pipe(plumber({ errorHandler: function(err) {
     notify.onError({
