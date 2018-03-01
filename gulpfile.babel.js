@@ -13,6 +13,7 @@ import sass from 'gulp-sass'
 import sassGlob from 'gulp-sass-glob'
 
 var config = require('./gulp-config.json');
+var runTimestamp = Math.round(Date.now() / 1000);
 
 const THEME_ROOT = config.theme_root;
 
@@ -40,7 +41,7 @@ gulp.task('watch', function(){
   // Watch SASS files.
   gulp.watch(paths.styles.scss + '**/*.scss', ['styles']);
   // Watch for new or changed icons.
-  gulp.watch(paths.img + 'icons/*.svg', ['icons']);
+  gulp.watch(paths.img + 'icons/**/*.svg', ['icons']);
 });
 
 // Compile SASS to CSS. Handle errors with plumber function.
@@ -66,13 +67,14 @@ gulp.task('styles', function(){
 
 // Generate icon font and a SCSS file.
 gulp.task('icons', function(done) {
-  var iconStream = gulp.src(paths.img + 'icons/*.svg')
+  var iconStream = gulp.src(paths.img + 'icons/**/*.svg')
     .pipe(iconfont({
       fontHeight: 1001,
       fontName: font_name,
+      prependUnicode: true,
       formats: ['svg', 'ttf', 'eot', 'woff', 'woff2'],
       normalize: true,
-      prependUnicode: true,
+      timestamp: runTimestamp,
     }));
 
   async.parallel([
