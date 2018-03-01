@@ -15,8 +15,13 @@ import sassGlob from 'gulp-sass-glob'
 var config = require('./gulp-config.json');
 
 const THEME_ROOT = config.theme_root;
-const FONT_NAME = config.iconfont_name;
-const STYLE_FILE = config.style_file_name;
+
+// Check if iconfont is given a special name in config file.
+// Otherwise set it to icons.
+var font_name = config.iconfont_name;
+if (typeof font_name == 'undefined') {
+  font_name = 'icons';
+}
 
 const paths = {
   styles: {
@@ -64,7 +69,7 @@ gulp.task('icons', function(done) {
   var iconStream = gulp.src(paths.img + 'icons/*.svg')
     .pipe(iconfont({
       fontHeight: 1001,
-      fontName: FONT_NAME,
+      fontName: font_name,
       formats: ['svg', 'ttf', 'eot', 'woff', 'woff2'],
       normalize: true,
       prependUnicode: true,
@@ -76,7 +81,7 @@ gulp.task('icons', function(done) {
         gulp.src(paths.styles.scss + '_icon-template.scss')
           .pipe(consolidate('lodash', {
             glyphs: glyphs,
-            fontName: FONT_NAME,
+            fontName: font_name,
             fontPath: '../fonts/',
             className: 's'
           }))

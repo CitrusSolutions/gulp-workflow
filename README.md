@@ -28,13 +28,17 @@ npm install
 ```
 
 ## Usage
-Gulp workflow needs a _gulp-config.json_ file in the same directory as the _gulpfile.js_. Best way is to link your existing config next to _gulpfile.js_.
+Gulp workflow needs a _gulp-config.json_ file in the same directory as the _gulpfile.babel.js_. Best way is to link your existing config next to _gulpfile.babel.js_.
 
-You can use this example example content in creating the config file.
+You can use this example content in creating the config file.
 ```
 {
-  "theme_root" : "web/themes/custom/theme_name/",
-  "style_file_name" : "main.scss",
-  "iconfont_name" : "iconfont"
+  "theme_root" : "web/themes/custom/theme_name/"
 }
 ```
+
+Additionally you can change the iconfont's name with config file by adding this to your _gulp-config.json_. Otherwise iconfont's name is set to _icons_.
+
+```
+  "iconfont_name" : "font_name"
+``
