@@ -1,14 +1,16 @@
-var async = require('async');
-var autoprefixer = require('gulp-autoprefixer');
-var cleanCSS = require('gulp-clean-css');
-var consolidate = require('gulp-consolidate');
-var gulp = require('gulp');
-var iconfont = require('gulp-iconfont');
-var notify = require('gulp-notify');
-var plumber = require('gulp-plumber');
-var rename = require('gulp-rename');
-var sass = require('gulp-sass');
-var sassGlob = require('gulp-sass-glob');
+'use strict';
+
+import async from 'async'
+import autoprefixer from 'gulp-autoprefixer'
+import cleanCSS from 'gulp-clean-css'
+import consolidate from 'gulp-consolidate'
+import gulp from 'gulp'
+import iconfont from 'gulp-iconfont'
+import notify from 'gulp-notify'
+import plumber from 'gulp-plumber'
+import rename from 'gulp-rename'
+import sass from 'gulp-sass'
+import sassGlob from 'gulp-sass-glob'
 
 var config = require('./gulp-config.json');
 
@@ -16,7 +18,7 @@ const THEME_ROOT = config.theme_root;
 const FONT_NAME = config.iconfont_name;
 const STYLE_FILE = config.style_file_name;
 
-const PATHS = {
+const paths = {
   scss: `${THEME_ROOT}scss/`,
   css: `${THEME_ROOT}css/`,
   generated: `${THEME_ROOT}scss/generated/`,
@@ -29,16 +31,16 @@ gulp.task('default', ['watch']);
 // A gulp watcher function.
 gulp.task('watch', function(){
   // Watch SASS files.
-  gulp.watch(PATHS.scss + '**/*.scss', ['sass']);
+  gulp.watch(paths.scss + '**/*.scss', ['sass']);
   // Watch for changes in main stylesheet.
-  gulp.watch(PATHS.css + '*.css', ['minify-css']);
+  gulp.watch(paths.css + '*.css', ['minify-css']);
   // Watch for new or changed icons.
-  gulp.watch(PATHS.img + 'icons/*.svg', ['icons']);
+  gulp.watch(paths.img + 'icons/*.svg', ['icons']);
 });
 
 // Compile SASS to CSS. Handle errors with plumber function.
 gulp.task('sass', function(){
-  gulp.src([PATHS.scss + STYLE_FILE, PATHS.scss + 'print.scss'])
+  gulp.src([paths.scss + STYLE_FILE, paths.scss + 'print.scss'])
   .pipe(sassGlob())
   .pipe(plumber({ errorHandler: function(err) {
     notify.onError({
@@ -51,19 +53,19 @@ gulp.task('sass', function(){
       browsers: ['last 2 versions'],
       cascade: false,
   }))
-  .pipe(gulp.dest(PATHS.css))
+  .pipe(gulp.dest(paths.css))
 });
 
 // Minify SASS to CSS.
 gulp.task('minify-css', function() {
-  return gulp.src(PATHS.css + '*.css')
+  return gulp.src(paths.css + '*.css')
     .pipe(cleanCSS())
-    .pipe(gulp.dest(PATHS.css));
+    .pipe(gulp.dest(paths.css));
 });
 
 // Generate icon font and a SCSS file.
 gulp.task('icons', function(done) {
-  var iconStream = gulp.src(PATHS.img + 'icons/*.svg')
+  var iconStream = gulp.src(paths.img + 'icons/*.svg')
     .pipe(iconfont({
       fontHeight: 1001,
       fontName: FONT_NAME,
@@ -75,7 +77,7 @@ gulp.task('icons', function(done) {
   async.parallel([
     function handleGlyphs (cb) {
       iconStream.on('glyphs', function(glyphs, options) {
-        gulp.src(PATHS.scss + '_icon-template.scss')
+        gulp.src(paths.scss + '_icon-template.scss')
           .pipe(consolidate('lodash', {
             glyphs: glyphs,
             fontName: FONT_NAME,
@@ -83,7 +85,7 @@ gulp.task('icons', function(done) {
             className: 's'
           }))
           .pipe(rename('_icons.scss'))
-          .pipe(gulp.dest(PATHS.generated))
+          .pipe(gulp.dest(paths.generated))
           .on('finish', cb);
       });
     },
