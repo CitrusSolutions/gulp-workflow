@@ -19,8 +19,10 @@ const FONT_NAME = config.iconfont_name;
 const STYLE_FILE = config.style_file_name;
 
 const paths = {
-  scss: `${THEME_ROOT}scss/`,
-  css: `${THEME_ROOT}css/`,
+  styles: {
+    scss: `${THEME_ROOT}scss/`,
+    css: `${THEME_ROOT}css/`
+  },
   generated: `${THEME_ROOT}scss/generated/`,
   img: `${THEME_ROOT}img/`
 };
@@ -31,16 +33,14 @@ gulp.task('default', ['watch']);
 // A gulp watcher function.
 gulp.task('watch', function(){
   // Watch SASS files.
-  gulp.watch(paths.scss + '**/*.scss', ['sass']);
-  // Watch for changes in main stylesheet.
-  gulp.watch(paths.css + '*.css', ['minify-css']);
+  gulp.watch(paths.styles.scss + '**/*.scss', ['styles']);
   // Watch for new or changed icons.
   gulp.watch(paths.img + 'icons/*.svg', ['icons']);
 });
 
 // Compile SASS to CSS. Handle errors with plumber function.
-gulp.task('sass', function(){
-  gulp.src([paths.scss + STYLE_FILE, paths.scss + 'print.scss'])
+gulp.task('styles', function(){
+  gulp.src([paths.styles.scss + '**/*.scss', paths.styles.scss + 'print.scss'])
   .pipe(sassGlob())
   .pipe(plumber({ errorHandler: function(err) {
     notify.onError({
@@ -53,14 +53,10 @@ gulp.task('sass', function(){
       browsers: ['last 2 versions'],
       cascade: false,
   }))
-  .pipe(gulp.dest(paths.css))
-});
-
-// Minify SASS to CSS.
-gulp.task('minify-css', function() {
-  return gulp.src(paths.css + '*.css')
-    .pipe(cleanCSS())
-    .pipe(gulp.dest(paths.css));
+  .pipe(gulp.dest(paths.styles.css))
+  // Continue with minifying newly created css files.
+  .pipe(cleanCSS())
+  .pipe(gulp.dest(paths.styles.css));
 });
 
 // Generate icon font and a SCSS file.
@@ -77,7 +73,7 @@ gulp.task('icons', function(done) {
   async.parallel([
     function handleGlyphs (cb) {
       iconStream.on('glyphs', function(glyphs, options) {
-        gulp.src(paths.scss + '_icon-template.scss')
+        gulp.src(paths.styles.scss + '_icon-template.scss')
           .pipe(consolidate('lodash', {
             glyphs: glyphs,
             fontName: FONT_NAME,
