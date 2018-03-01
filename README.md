@@ -41,4 +41,4 @@ Additionally you can change the iconfont's name with config file by adding this 
 
 ```
   "iconfont_name" : "font_name"
-``
+```

@@ -56,8 +56,8 @@ gulp.task('styles', function(){
   }}))
   .pipe(sass())
   .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false,
+    browsers: ['last 2 versions'],
+    cascade: false,
   }))
   .pipe(gulp.dest(paths.styles.css))
   // Continue with minifying newly created css files.
