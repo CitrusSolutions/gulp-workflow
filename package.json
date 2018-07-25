@@ -1,6 +1,6 @@
 {
   "name": "citrus-workflow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Citrus Gulp workflow package",
   "main": "index.js",
   "author": "Citrus Solutions Oy",
@@ -21,7 +21,7 @@
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.0",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^3.2.1",
+    "gulp-sass": "^4.0.1",
     "gulp-sass-glob": "^1.0.9",
     "lodash": "^4.17.10"
   }
