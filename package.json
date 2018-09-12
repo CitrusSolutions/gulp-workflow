@@ -1,6 +1,6 @@
 {
   "name": "citrus-workflow",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Citrus Gulp workflow package",
   "main": "index.js",
   "author": "Citrus Solutions Oy",
