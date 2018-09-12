@@ -11,6 +11,7 @@ import plumber from 'gulp-plumber'
 import rename from 'gulp-rename'
 import sass from 'gulp-sass'
 import sassGlob from 'gulp-sass-glob'
+import watch from 'gulp-watch'
 
 var config = require('./gulp-config.json');
 var runTimestamp = Math.round(Date.now() / 1000);
@@ -33,20 +34,17 @@ const paths = {
   img: `${THEME_ROOT}img/`
 };
 
-// Default Gulp task run on `gulp` command.
-gulp.task('default', ['watch']);
-
 // A gulp watcher function.
 gulp.task('watch', function(){
   // Watch SASS files.
-  gulp.watch(paths.styles.scss + '**/*.scss', ['styles']);
+  gulp.watch(paths.styles.scss + '**/*.scss', gulp.series('styles'));
   // Watch for new or changed icons.
-  gulp.watch(paths.img + 'icons/**/*.svg', ['icons']);
+  gulp.watch(paths.img + 'icons/**/*.svg', gulp.series('icons'));
 });
 
 // Compile SASS to CSS. Handle errors with plumber function.
 gulp.task('styles', function(){
-  gulp.src([paths.styles.scss + '**/*.scss', paths.styles.scss + 'print.scss'])
+  gulp.src([paths.styles.scss + '**/*.scss'])
   .pipe(sassGlob())
   .pipe(plumber({ errorHandler: function(err) {
     notify.onError({
@@ -99,3 +97,6 @@ gulp.task('icons', function(done) {
     }
   ], done);
 });
+
+// Default Gulp task run on `gulp` command.
+gulp.task('default', gulp.parallel('watch'));
