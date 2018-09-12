@@ -43,15 +43,16 @@ gulp.task('watch', function(){
 });
 
 // Compile SASS to CSS. Handle errors with plumber function.
-gulp.task('styles', function(){
-  gulp.src([paths.styles.scss + '**/*.scss'])
-  .pipe(sassGlob())
+gulp.task('styles', function() {
+  return gulp.src([paths.styles.scss + '**/*.scss'])
   .pipe(plumber({ errorHandler: function(err) {
     notify.onError({
       title: "Gulp error in " + err.plugin,
       message: err.toString()
     })(err);
+    this.emit('end');
   }}))
+  .pipe(sassGlob())
   .pipe(sass())
   .pipe(autoprefixer({
     browsers: ['last 2 versions'],
@@ -60,7 +61,7 @@ gulp.task('styles', function(){
   .pipe(gulp.dest(paths.styles.css))
   // Continue with minifying newly created css files.
   .pipe(cleanCSS())
-  .pipe(gulp.dest(paths.styles.css));
+  .pipe(gulp.dest(paths.styles.css));;
 });
 
 // Generate icon font and a SCSS file.
