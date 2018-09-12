@@ -4,9 +4,11 @@ import async from 'async'
 import autoprefixer from 'gulp-autoprefixer'
 import cleanCSS from 'gulp-clean-css'
 import consolidate from 'gulp-consolidate'
+import fs from 'fs'
 import gulp from 'gulp'
 import iconfont from 'gulp-iconfont'
 import notify from 'gulp-notify'
+import path from 'path'
 import plumber from 'gulp-plumber'
 import rename from 'gulp-rename'
 import sass from 'gulp-sass'
@@ -66,18 +68,49 @@ gulp.task('styles', function() {
 
 // Generate icon font and a SCSS file.
 gulp.task('icons', function(done) {
+  // This is a hack for fixing unicode prepend problems.
+  // The newer version of gulp-iconfont doesn't understand
+  // which unicode characters are already used.
+  var lastUnicode = 0xEA01; //59905
+
+  // Create config object from your presets.
+  var iconfontConfig = Object.create({
+    fontHeight: 1001,
+    fontName: font_name,
+    prependUnicode: true,
+    formats: ['svg', 'ttf', 'eot', 'woff', 'woff2'],
+    normalize: true,
+    timestamp: runTimestamp,
+  });
+
+  // Read source directory and sort by name.
+  var files = fs.readdirSync(paths.img + 'icons');
+
+  // Filter files with containing unicode value and set last unicode.
+  files.forEach(function(file) {
+    var basename = path.basename(file);
+    var matches = basename.match(/^(?:((?:u[0-9a-f]{4,6},?)+)\-)?(.+)\.svg$/i);
+    var currentCode = -1;
+
+    if(matches && matches[1]) {
+      currentCode = parseInt(matches[1].split('u')[1], 16);
+    }
+
+    if (currentCode >= lastUnicode) {
+      lastUnicode = ++currentCode;
+    }
+  });
+
+  // Set startUnicode option to determined unicode from filenames
+  iconfontConfig.startUnicode = lastUnicode;
+  // End of hack.
+
+  // Create an iconstream.
   var iconStream = gulp.src(paths.img + 'icons/**/*.svg')
-    .pipe(iconfont({
-      fontHeight: 1001,
-      fontName: font_name,
-      prependUnicode: true,
-      formats: ['svg', 'ttf', 'eot', 'woff', 'woff2'],
-      normalize: true,
-      timestamp: runTimestamp,
-    }));
+    .pipe(iconfont(iconfontConfig));
 
   async.parallel([
-    function handleGlyphs (cb) {
+    function handleGlyphs(callback) {
       iconStream.on('glyphs', function(glyphs, options) {
         gulp.src(paths.styles.scss + '_icon-template.scss')
           .pipe(consolidate('lodash', {
@@ -88,13 +121,13 @@ gulp.task('icons', function(done) {
           }))
           .pipe(rename('_icons.scss'))
           .pipe(gulp.dest(paths.generated))
-          .on('finish', cb);
+          .on('finish', callback);
       });
     },
-    function handleFonts (cb) {
+    function handleFonts(callback) {
       iconStream
         .pipe(gulp.dest(THEME_ROOT + 'fonts/'))
-        .on('finish', cb);
+        .on('finish', callback);
     }
   ], done);
 });
