@@ -1,19 +1,19 @@
 'use strict';
 
-import async from 'async'
-import autoprefixer from 'gulp-autoprefixer'
-import cleanCSS from 'gulp-clean-css'
-import consolidate from 'gulp-consolidate'
-import fs from 'fs'
-import gulp from 'gulp'
-import iconfont from 'gulp-iconfont'
-import notify from 'gulp-notify'
-import path from 'path'
-import plumber from 'gulp-plumber'
-import rename from 'gulp-rename'
-import sass from 'gulp-sass'
-import sassGlob from 'gulp-sass-glob'
-import watch from 'gulp-watch'
+var async = require('async');
+var autoprefixer = require('gulp-autoprefixer');
+var cleanCSS = require('gulp-clean-css');
+var consolidate = require('gulp-consolidate');
+var fs = require('fs');
+var gulp = require('gulp');
+var iconfont = require('gulp-iconfont');
+var notify = require('gulp-notify');
+var path = require('path');
+var plumber = require('gulp-plumber');
+var rename = require('gulp-rename');
+var sass = require('gulp-sass');
+var sassGlob = require('gulp-sass-glob');
+var watch = require('gulp-watch');
 
 var config = require('./gulp-config.json');
 var runTimestamp = Math.round(Date.now() / 1000);
