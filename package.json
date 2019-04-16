@@ -10,9 +10,9 @@
     "url": "git://github.com/CitrusSolutions/gulp-workflow.git"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/register": "^7.0.0",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
     "async": "^2.6.2",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
