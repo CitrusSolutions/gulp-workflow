@@ -28,5 +28,11 @@
     "gulp-watch": "^5.0.1",
     "lodash": "^4.17.15",
     "path": "^0.12.7"
-  }
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ]
 }
