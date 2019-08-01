@@ -4,13 +4,13 @@ A custom workflow for compiling theme files with Gulp. It compiles and minifies 
 ## Installation
 Before using this magnificent Gulp Workflow be sure to check that you have [Node](https://nodejs.org/), [NPM](https://www.npmjs.com/) and [Gulp with Gulp CLI](https://gulpjs.com/) globally installed on your microcomputer.
 
-You can just clone this repository and start using it or install it with Composer. Add this to your _composer.json_
+You can just clone this repository and start using it or install it with Composer. Add this to your _composer.json_. Replace the version number with the latest version.
 ```
 {
   "type": "package",
   "package": {
     "name": "gulp-workflow",
-    "version": "dev-master",
+    "version": "1.1.4",
     "type": "project",
     "source": {
       "url": "https://github.com/CitrusSolutions/gulp-workflow.git",
