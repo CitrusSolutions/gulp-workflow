@@ -10,7 +10,7 @@ You can just clone this repository and start using it or install it with Compose
   "type": "package",
   "package": {
     "name": "gulp-workflow",
-    "version": "1.1.4",
+    "version": "1.2.1",
     "type": "project",
     "source": {
       "url": "https://github.com/CitrusSolutions/gulp-workflow.git",
@@ -21,7 +21,7 @@ You can just clone this repository and start using it or install it with Compose
 }
 ```
 
-and add `"gulp-workflow": "dev-master",` to your list of requirements.
+and add `"gulp-workflow": "1.2.1",` to your list of requirements.
 
 ### NPM packages
 Dependencies are handled in _package.json_ file. Before running Gulp you must install dependencies with node package manager by running:
@@ -44,3 +44,5 @@ Additionally you can change the iconfont's name with config file by adding this 
 ```
   "iconfont_name" : "font_name"
 ```
+
+On default when running `gulp` in your terminal the system will activate `gulp watch` function. It watches SCSS files and uses the iconfont compiler. If you want to use SASS files instead run the command `gulp sass`. It watches for SASS files inside SASS directory.
