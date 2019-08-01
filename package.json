@@ -26,6 +26,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-sass-glob": "^1.1.0",
     "gulp-watch": "^5.0.1",
+    "gulp-watch-sass": "^1.4.1",
     "lodash": "^4.17.15",
     "lodash.template": "^4.5.0",
     "path": "^0.12.7"
