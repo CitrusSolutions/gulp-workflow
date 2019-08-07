@@ -68,7 +68,7 @@ gulp.task('styles', function() {
   .pipe(gulp.dest(paths.styles.css))
   // Continue with minifying newly created css files.
   .pipe(cleanCSS())
-  .pipe(gulp.dest(paths.styles.css));;
+  .pipe(gulp.dest(paths.styles.css));
 });
 
 // Compile SCSS to CSS. Handle errors with plumber function.
@@ -89,7 +89,7 @@ gulp.task('sass-styles', function() {
   .pipe(gulp.dest(paths.styles.css))
   // Continue with minifying newly created css files.
   .pipe(cleanCSS())
-  .pipe(gulp.dest(paths.styles.css));;
+  .pipe(gulp.dest(paths.styles.css));
 });
 
 // Generate icon font and a SCSS file.
