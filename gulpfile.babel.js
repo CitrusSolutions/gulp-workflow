@@ -30,7 +30,6 @@ if (typeof font_name == 'undefined') {
 
 const paths = {
   styles: {
-    sass: `${THEME_ROOT}sass/`,
     scss: `${THEME_ROOT}scss/`,
     css: `${THEME_ROOT}css/`
   },
@@ -46,34 +45,9 @@ gulp.task('watch', function() {
   gulp.watch(paths.img + 'icons/**/*.svg', gulp.series('icons'));
 });
 
-gulp.task('sass', function() {
-  gulp.watch(paths.styles.sass + '**/*.sass', gulp.series('sass-styles'));
-});
-
 // Compile SCSS to CSS. Handle errors with plumber function.
 gulp.task('styles', function() {
   return gulp.src([paths.styles.scss + '**/*.scss'])
-  .pipe(plumber({ errorHandler: function(err) {
-    notify.onError({
-      title: "Gulp error in " + err.plugin,
-      message: err.toString()
-    })(err);
-    this.emit('end');
-  }}))
-  .pipe(sassGlob())
-  .pipe(sass())
-  .pipe(autoprefixer({
-    cascade: false,
-  }))
-  .pipe(gulp.dest(paths.styles.css))
-  // Continue with minifying newly created css files.
-  .pipe(cleanCSS())
-  .pipe(gulp.dest(paths.styles.css));
-});
-
-// Compile SCSS to CSS. Handle errors with plumber function.
-gulp.task('sass-styles', function() {
-  return gulp.src([paths.styles.sass + '**/*.sass'])
   .pipe(plumber({ errorHandler: function(err) {
     notify.onError({
       title: "Gulp error in " + err.plugin,
