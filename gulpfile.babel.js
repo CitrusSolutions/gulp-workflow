@@ -5,6 +5,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var cleanCSS = require('gulp-clean-css');
 var consolidate = require('gulp-consolidate');
 var fs = require('fs');
+var glob = require('glob');
 var gulp = require('gulp');
 var iconfont = require('gulp-iconfont');
 var notify = require('gulp-notify');
@@ -14,6 +15,7 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var sassGlob = require('gulp-sass-glob');
 var watch = require('gulp-watch');
+
 const watchSass = require("gulp-watch-sass");
 
 var config = require('./gulp-config.json');
