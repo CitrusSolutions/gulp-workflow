@@ -34,12 +34,12 @@ Gulp workflow automatically detects Drupal site's themes and compiles them.
 
 On default when running `gulp` in your terminal the system will activate `gulp watch` function. It watches SCSS files and uses the iconfont compiler.
 
-Gulp workflow needs a _gulp-config.json_ file in the same directory as the _gulpfile.babel.js_. Best way is to link your existing config next to _gulpfile.babel.js_.
+Overriding the default theme watcher is possible by creating a file named _gulp-config.json_ file in the same directory as the _gulpfile.babel.js_. Best way is to link your existing config next to _gulpfile.babel.js_. The configuration can be used to make compiler watch only single theme eg. in a special path.
 
 You can use this example content in creating the config file.
 ```
 {
-  "theme_root" : "web/themes/custom/theme_name/"
+  "theme_root" : "web/themes/custom/theme_name"
 }
 ```
 
