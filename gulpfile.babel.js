@@ -46,12 +46,16 @@ var config_path = './gulp-config.json';
 var font_name;
 if (fs.existsSync(config_path)) {
   var config = require('./gulp-config.json');
-  const THEME_ROOT = config.theme_root;
+  var theme_root = config.theme_root;
+
+  if (theme_root.charAt(theme_root.length - 1) == '/') {
+    theme_root = theme_root.slice(0, -1);
+  }
 
   // Replace the theme array with a single value
   themes = [{
-    name: THEME_ROOT.split('/').splice(-1),
-    path: THEME_ROOT
+    name: theme_root.split('/').splice(-1),
+    path: theme_root
   }];
 
   font_name = config.iconfont_name;

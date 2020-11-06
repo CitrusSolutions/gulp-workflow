@@ -10,7 +10,7 @@ You can just clone this repository and start using it or install it with Compose
   "type": "package",
   "package": {
     "name": "citrussolutions/gulp-workflow",
-    "version": "1.3.0",
+    "version": "2.0.0",
     "type": "project",
     "source": {
       "url": "https://github.com/CitrusSolutions/gulp-workflow.git",
@@ -21,7 +21,7 @@ You can just clone this repository and start using it or install it with Compose
 }
 ```
 
-and add `"citrussolutions/gulp-workflow: "1.3.0",` to your list of development requirements.
+and add `"citrussolutions/gulp-workflow: "2.0.0",` to your list of development requirements.
 
 ### NPM packages
 Dependencies are handled in _package.json_ file. Before running Gulp you must install dependencies with node package manager by running:
@@ -30,6 +30,10 @@ npm install
 ```
 
 ## Usage
+Gulp workflow automatically detects Drupal site's themes and compiles them.
+
+On default when running `gulp` in your terminal the system will activate `gulp watch` function. It watches SCSS files and uses the iconfont compiler.
+
 Gulp workflow needs a _gulp-config.json_ file in the same directory as the _gulpfile.babel.js_. Best way is to link your existing config next to _gulpfile.babel.js_.
 
 You can use this example content in creating the config file.
@@ -44,5 +48,3 @@ Additionally you can change the iconfont's name with config file by adding this 
 ```
   "iconfont_name" : "font_name"
 ```
-
-On default when running `gulp` in your terminal the system will activate `gulp watch` function. It watches SCSS files and uses the iconfont compiler.
