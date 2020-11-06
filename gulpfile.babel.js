@@ -14,6 +14,7 @@ var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var sassGlob = require('gulp-sass-glob');
+var sourcemaps = require('gulp-sourcemaps');
 var watch = require('gulp-watch');
 
 var runTimestamp = Math.round(Date.now() / 1000);
@@ -76,7 +77,7 @@ if (typeof font_name == 'undefined') {
 themes.forEach(function(theme) {
   // Create a theme specific SCSS compiler.
   gulp.task(theme.name + '_styles', function() {
-    return gulp.src([theme.path + paths.scss])
+    return gulp.src(theme.path + paths.scss)
     .pipe(plumber({errorHandler: function(err) {
       notify.onError({
         title: "Gulp error in " + err.plugin,
@@ -84,6 +85,7 @@ themes.forEach(function(theme) {
       })(err);
       this.emit('end');
     }}))
+    .pipe(sourcemaps.init())
     .pipe(sassGlob())
     .pipe(sass())
     .pipe(autoprefixer({
@@ -92,6 +94,7 @@ themes.forEach(function(theme) {
     .pipe(gulp.dest(theme.path + paths.css))
     // Continue with minifying newly created css files.
     .pipe(cleanCSS())
+    .pipe(sourcemaps.write('../maps'))
     .pipe(gulp.dest(theme.path + paths.css));
   });
 
