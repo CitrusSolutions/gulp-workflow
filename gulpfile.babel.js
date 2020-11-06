@@ -94,7 +94,7 @@ themes.forEach(function(theme) {
     .pipe(gulp.dest(theme.path + paths.css))
     // Continue with minifying newly created css files.
     .pipe(cleanCSS())
-    .pipe(sourcemaps.write('../maps'))
+    .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(theme.path + paths.css));
   });
 
