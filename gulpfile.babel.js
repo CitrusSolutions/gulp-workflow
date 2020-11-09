@@ -2,6 +2,7 @@
 
 var async = require('async');
 var autoprefixer = require('gulp-autoprefixer');
+var cache = require('gulp-cached');
 var cleanCSS = require('gulp-clean-css');
 var consolidate = require('gulp-consolidate');
 var fs = require('fs');
@@ -20,11 +21,13 @@ var watch = require('gulp-watch');
 var runTimestamp = Math.round(Date.now() / 1000);
 
 const paths = {
-  scss: '/scss/**/*.scss',
   css: '/css/',
+  fonts: '/fonts',
   generated: '/scss/generated/',
+  icons_dir: '/img/icons',
+  icons: '/img/icons/**/*.svg',
   img: '/img/',
-  fonts: '/fonts'
+  scss: '/scss/**/*.scss'
 };
 
 // Default to watching all of the themes found under themes directory.
@@ -78,6 +81,7 @@ themes.forEach(function(theme) {
   // Create a theme specific SCSS compiler.
   gulp.task(theme.name + '_styles', function() {
     return gulp.src(theme.path + paths.scss)
+    .pipe(cache('scss_compilation'))
     .pipe(plumber({errorHandler: function(err) {
       notify.onError({
         title: "Gulp error in " + err.plugin,
@@ -116,7 +120,7 @@ themes.forEach(function(theme) {
     });
 
     // Read source directory and sort by name.
-    var files = fs.readdirSync(theme.path + paths.img + 'icons');
+    var files = fs.readdirSync(theme.path + paths.icons_dir);
 
     // Filter files with containing unicode value and set last unicode.
     files.forEach(function(file) {
@@ -138,7 +142,7 @@ themes.forEach(function(theme) {
     // End of hack.
 
     // Create an iconstream.
-    var iconStream = gulp.src(theme.path + paths.img + 'icons/**/*.svg')
+    var iconStream = gulp.src(theme.path + paths.icons)
       .pipe(iconfont(iconfontConfig));
 
     async.parallel([
@@ -173,7 +177,7 @@ gulp.task('watch', function() {
     // Watch for changed SCSS files.
     gulp.watch(theme.path + paths.scss, gulp.series(theme.name + '_styles'));
     // Watch for new or changed icons.
-    gulp.watch(theme.path + paths.img + 'icons/**/*.svg', gulp.series(theme.name + '_iconfont'));
+    gulp.watch(theme.path + paths.icons, gulp.series(theme.name + '_iconfont'));
   });
 });
 
