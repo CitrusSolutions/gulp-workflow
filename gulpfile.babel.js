@@ -2,7 +2,6 @@
 
 var async = require('async');
 var autoprefixer = require('gulp-autoprefixer');
-var cache = require('gulp-cached');
 var cleanCSS = require('gulp-clean-css');
 var consolidate = require('gulp-consolidate');
 var fs = require('fs');
@@ -81,7 +80,6 @@ themes.forEach(function(theme) {
   // Create a theme specific SCSS compiler.
   gulp.task(theme.name + '_styles', function() {
     return gulp.src(theme.path + paths.scss)
-    .pipe(cache('scss_compilation'))
     .pipe(plumber({errorHandler: function(err) {
       notify.onError({
         title: "Gulp error in " + err.plugin,
