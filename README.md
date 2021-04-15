@@ -10,7 +10,7 @@ You can just clone this repository and start using it or install it with Compose
   "type": "package",
   "package": {
     "name": "citrussolutions/gulp-workflow",
-    "version": "2.0.0",
+    "version": "2.0.3",
     "type": "project",
     "source": {
       "url": "https://github.com/CitrusSolutions/gulp-workflow.git",
@@ -21,7 +21,7 @@ You can just clone this repository and start using it or install it with Compose
 }
 ```
 
-and add `"citrussolutions/gulp-workflow: "2.0.0",` to your list of development requirements.
+and add `"citrussolutions/gulp-workflow: "^2.0",` to your list of development requirements.
 
 ### NPM packages
 Dependencies are handled in _package.json_ file. Before running Gulp you must install dependencies with node package manager by running:
