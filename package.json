@@ -30,7 +30,8 @@
     "gulp-watch": "^5.0.1",
     "lodash": "^4.17.20",
     "lodash.template": "^4.5.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sass": "^1.68.0"
   },
   "browserslist": [
     "last 1 version",
